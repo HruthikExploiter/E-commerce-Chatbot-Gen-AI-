@@ -1,6 +1,7 @@
 import pandas as pd
 from pathlib import Path
 import chromadb
+from chromadb.config import Settings
 from chromadb.utils import embedding_functions
 from groq import Groq
 import os
@@ -10,7 +11,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 faq_path = Path(__file__).parent / "Resources/faq_data.csv"
-chroma_client = chromadb.Client()
+
+chroma_client = chromadb.Client(Settings(
+    persist_directory=None  # disables persistence
+))
 
 collection_name = 'faqs'
 
